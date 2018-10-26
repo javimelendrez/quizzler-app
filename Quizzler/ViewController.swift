@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     let allQuestions = QuestionBank()
     
     var pickedAnswer : Bool = false
+    var questionNumber : Int = 0 //going to keep track of the state of the app , which question are they on
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet var progressBar: UIView!
@@ -47,6 +48,11 @@ class ViewController: UIViewController {
             pickedAnswer = false
         }
         checkAnswer()
+        //increase the quetion number
+        // you cant questionNumber++
+        questionNumber = questionNumber + 1
+        nextQuestion()
+        
         
   
     }
@@ -58,21 +64,28 @@ class ViewController: UIViewController {
     
 
     func nextQuestion() {
-        
-    }
+        //change the text to the next question
+        if questionNumber <= 12
+        {
+        questionLabel.text = allQuestions.list[questionNumber].questionText
+        }else
+        {
+            print("end of quiz")
+            questionNumber = 0 // reset the counter once the game is over
+        }
     
     
     func checkAnswer() {
         //we need to compare the correct answer w the picked answer
         //you can take the two lines and put them into one
-        let firstQuestion = allQuestions.list[0].answer
+        let firstQuestion = allQuestions.list[questionNumber].answer
         if pickedAnswer == firstQuestion
         {
-            
+            print("your right")
         }
         else
         {
-            
+            print("your wrong")
         }
     }
     
