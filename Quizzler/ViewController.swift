@@ -48,6 +48,7 @@ class ViewController: UIViewController {
             pickedAnswer = false
         }
         checkAnswer()
+        
         //increase the quetion number
         // you cant questionNumber++
         questionNumber = questionNumber + 1
@@ -70,8 +71,25 @@ class ViewController: UIViewController {
         questionLabel.text = allQuestions.list[questionNumber].questionText
         }else
         {
-            print("end of quiz")
-            questionNumber = 0 // reset the counter once the game is over
+//            print("end of quiz")
+//            questionNumber = 0 // reset the counter once the game is over
+//            let alert = UIAlertController(title: "Awesome!", message: "You finished all the questions, do you want to start all over?", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Awesome", message: "You finished all the questions, do you want to start all over?", preferredStyle: .alert)
+            let restart = UIAlertAction(title: "Restart", style: .default) { (UIAlertAction) in
+                     self.startOver()
+            }
+            alert.addAction(restart)
+            present(alert, animated: true, completion: nil)
+            }
+//            let restartAction = UIAlertAction(title: "Restart", style: .default) { (UIAlertAction) in
+//                //
+//                startOver()
+//            }
+
+
+//            alert.addAction(restartAction)
+//            present(alert, animated: true, completion: nil)
+            
         }
     
     
@@ -83,17 +101,22 @@ class ViewController: UIViewController {
         {
             print("your right")
         }
-        else
-        {
+        else{
             print("your wrong")
         }
-    }
+        
+        }
     
     
-    func startOver() {
-       
+    func startOver()
+    {
+        //set counter back to 0
+        questionNumber = 0
+        //this will change the label
+        nextQuestion()
     }
     
 
     
 }
+
