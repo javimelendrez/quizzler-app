@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     var pickedAnswer : Bool = false
     var questionNumber : Int = 0 //going to keep track of the state of the app , which question are they on
+    var score : Int = 0 // will hold the points that the user get for each right answer
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet var progressBar: UIView!
@@ -60,7 +61,15 @@ class ViewController: UIViewController {
     
     
     func updateUI() {
-      
+      //update the score label
+        scoreLabel.text = "\(score)" //has to be a string because text label is a string
+        //update the progress label
+        progressLabel.text = "\(questionNumber + 1)/13"
+        //can not multiply the int so it has to be converted to cgfloat
+        //divide the size of the frame by 13 * what question you are on
+        //has to be + 1 because the question number starts at 0
+        progressBar.frame.size.width = (view.frame.size.width / 13) * CGFloat(questionNumber + 1)
+        
     }
     
 
@@ -69,6 +78,8 @@ class ViewController: UIViewController {
         if questionNumber <= 12
         {
         questionLabel.text = allQuestions.list[questionNumber].questionText
+            //when the next question appears call function to also update score
+            updateUI()
         }else
         {
 //            print("end of quiz")
@@ -100,6 +111,7 @@ class ViewController: UIViewController {
         if pickedAnswer == firstQuestion
         {
             print("your right")
+            score += 1 // increase score by one when the user is right
         }
         else{
             print("your wrong")
@@ -114,6 +126,9 @@ class ViewController: UIViewController {
         questionNumber = 0
         //this will change the label
         nextQuestion()
+        //set score to 0
+        score = 0
+        updateUI()
     }
     
 
